@@ -1,7 +1,7 @@
 package banco;
 
 import java.sql.SQLException;
-import java.util.Date;
+//import java.util.Date;
 import entidades.Pagamento;
 
 public class PagamentoDAO {
