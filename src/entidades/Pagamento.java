@@ -60,4 +60,7 @@ public class Pagamento {
 		this.data_pagamento = data_pagamento;
 	}
 	
+	public String toString() {
+		return "["+codigo+","+codigo_func+","+cargo_senioridade+","+salario+","+inss+","+irrf+","+fgts+","+data_pagamento+"]";
+	}
 }
