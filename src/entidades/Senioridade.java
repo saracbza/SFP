@@ -23,4 +23,8 @@ public class Senioridade {
 	public void setPorcentagem_rec(float porcentagem_rec) {
 		this.porcentagem_rec = porcentagem_rec;
 	}
+
+	public String toString() {
+		return "["+codigo+","+nivel+","+porcentagem_rec+"]";
+	}
 }

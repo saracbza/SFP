@@ -23,4 +23,8 @@ public class Cargo {
 	public void setValor_hr(float valor_hr) {
 		this.valor_hr = valor_hr;
 	}
+
+	public String toString() {
+		return "["+codigo+","+nome+","+valor_hr+"]";
+	}
 }

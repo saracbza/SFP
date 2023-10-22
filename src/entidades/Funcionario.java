@@ -46,4 +46,7 @@ public class Funcionario {
 		this.dependentes = dependentes;
 	}
 	
+	public String toString() {
+		return "["+codigo+","+nome+","+cpf+","+data_nasc+","+data_contrat+","+dependentes+"]";
+	}
 }
