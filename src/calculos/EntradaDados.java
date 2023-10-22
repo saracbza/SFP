@@ -1,6 +1,6 @@
-package testes;
+package calculos;
 import java.text.DecimalFormat;
-//import java.util.Date;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 public class EntradaDados {
