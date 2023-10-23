@@ -53,7 +53,7 @@ public class FuncionarioDAO {
 
 	public void listarFuncionario() {
 		if(bd.getConnection()) {
-			String sql = "SELECT f.nome AS Funcionário, c.nome_cargo AS Cargo, s.nivel AS Senioridade \r\n"
+			String sql = "SELECT f.nome, c.nome_cargo, s.nivel \r\n"
 					+ "FROM cargo c \r\n"
 					+ "inner join cargo_funcionario cf ON c.cod_cargo = cf.cod_cargo \r\n"
 					+ "inner join funcionario f ON f.cod_func = cf.cod_func \r\n"
