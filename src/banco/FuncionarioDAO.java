@@ -216,4 +216,35 @@ public class FuncionarioDAO {
 		}
 		return men;
 	}
+
+	/** 
+	 * Localiza um funcionario a partir de seu nome
+	 * @param nome nome do funcionario a ser localizado
+	 * @return o cargo pesquisado
+	 */
+	public Funcionario pesquisar (String nome) {
+		Funcionario f = new Funcionario();
+		sql = "SELECT * funcionario WHERE nome LIKE ?";
+		try {
+			bd.getConnection();
+			bd.st = bd.con.prepareStatement(sql);
+			bd.st.setString(1, "%" + nome + "%");
+			bd.rs = bd.st.executeQuery();
+			if(bd.rs.next()) {
+				f.setCodigo(bd.rs.getInt(1));
+				f.setNome(bd.rs.getString(2));
+				f.setCpf(bd.rs.getString(3));
+				f.setData_nasc(bd.rs.getDate(4));
+				f.setData_contrat(bd.rs.getDate(5));
+				f.setDependentes(bd.rs.getInt(6));
+			} else f = null;
+	}
+		catch(SQLException erro) {
+			f = null;
+		}
+		finally {
+			bd.close();
+		}
+		return f;
+	}
 }
