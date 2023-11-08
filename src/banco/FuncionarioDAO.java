@@ -89,31 +89,25 @@ public class FuncionarioDAO {
 		}
 	
     /**
-     * Lista nome, cargo e senioridade dos funcionarios cadastrados
-     */
-
-	public void listarFuncionario() {
+	 * Busca todos os funcionarios, seu cargo e sua senioridade no banco
+	 */
+	public void listarFuncionario(int cod) {
 		if(bd.getConnection()) {
-			String sql = "SELECT f.nome, c.nome_cargo, s.nivel \r\n"
+			String sql = "SELECT f.nome, c.nome_cargo, s.nivel\r\n"
 					+ "FROM cargo c \r\n"
 					+ "inner join cargo_funcionario cf ON c.cod_cargo = cf.cod_cargo \r\n"
 					+ "inner join funcionario f ON f.cod_func = cf.cod_func \r\n"
 					+ "inner join sen_funcionario sf ON sf.cod_func = f.cod_func \r\n"
-					+ "inner join senioridade s ON sf.cod_sen = s.cod_sen";
+					+ "inner join senioridade s ON sf.cod_sen = s.cod_sen\r\n"
+					+ "where f.cod_func = ?";
 			try {
 				bd.st = bd.con.prepareStatement(sql);
+				bd.st.setInt(1, cod);
 				bd.rs = bd.st.executeQuery();
 				
 				while(bd.rs.next()) { 
-					Funcionario f = new Funcionario();
-					Cargo c = new Cargo();
-					Senioridade s = new Senioridade();
-					f.setNome(bd.rs.getString(1));
-					c.setNome(bd.rs.getString(2));
-					s.setNivel(bd.rs.getString(3));
-					
-					System.out.println("Nome: "+f.getNome()+"\nCargo: "+c.getNome()+" "+s.getNivel());
-					System.out.println("----");
+					cargo = bd.rs.getString(2);
+					sen = bd.rs.getString(3);
 				}
 			}
 			catch(SQLException e) {
