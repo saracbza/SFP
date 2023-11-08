@@ -4,9 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import entidades.Cargo;
 import entidades.Funcionario;
-import entidades.Senioridade;
 
 public class FuncionarioDAO {
 	private BD bd;
