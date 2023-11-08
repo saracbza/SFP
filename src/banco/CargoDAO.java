@@ -42,7 +42,7 @@ public class CargoDAO {
 				return lista;
 			}
 
-		/**
+		 /**
 		 * Realiza a gravacao de um cargo no banco de dados
 		 * @param c - o cargo a ser gravado
 		 * @return - mensagem de aviso do processo
@@ -66,4 +66,28 @@ public class CargoDAO {
 			}
 			return men;
 		}
+
+		 /**
+		 * Exclui um cargo a partir de seu codigo
+		 * @param cod - codigo do cargo a ser excluido
+		 * @return - mensagem de confirmacao da exclusao
+		 */
+		public String excluir (int cod) {
+			sql = "DELETE FROM cargo WHERE cod_cargo = ?";
+			try {
+				bd.getConnection();
+				bd.st = bd.con.prepareStatement(sql);
+				bd.st.setInt(1, cod);
+				if (bd.st.executeUpdate()==1) men = "Excluido com sucesso!";
+				else men = "Cargo não encontrado";
+		}
+			catch(SQLException erro) {
+				men = "Falha: " + erro;
+			}
+			finally {
+				bd.close();
+			}
+			return men;
+		}
+		
 	}
