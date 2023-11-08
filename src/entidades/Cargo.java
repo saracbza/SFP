@@ -5,6 +5,19 @@ public class Cargo {
 	private String nome;
 	private float valor_hr;
 	
+	public Cargo() {}
+	
+	public Cargo(int codigo, String nome, float valor_hr) {
+		this.codigo = codigo;
+		this.nome = nome;
+		this.valor_hr = valor_hr;
+	}
+	
+	public Cargo(String nome, float valor_hr) {
+		this.nome = nome;
+		this.valor_hr = valor_hr;
+	}
+
 	public int getCodigo() {
 		return codigo;
 	}
