@@ -19,7 +19,7 @@ public class FuncionarioDAO {
 	 * @return - senioridade
 	 */
 	public String senioridade () {
-		return sen;
+		return this.sen;
 	}
 	
 	/**
@@ -27,7 +27,7 @@ public class FuncionarioDAO {
 	 * @return - cargo
 	 */
 	public String cargo () {
-		return cargo;
+		return this.cargo;
 	}
 	
 	/**
@@ -35,7 +35,7 @@ public class FuncionarioDAO {
 	 * @return - quantidade de dependentes
 	 */
 	public int dependentes () {
-		return dependentes;
+		return this.dependentes;
 	}
 	
 	/**
@@ -43,7 +43,7 @@ public class FuncionarioDAO {
 	 * @return - valor por hora que o funcionario recebe de acordo com seu cargo
 	 */
 	public float valor_hr () {
-		return valor_hr;
+		return this.valor_hr;
 	}
 	
 	/**
@@ -52,7 +52,7 @@ public class FuncionarioDAO {
 	 */
 	public float porcentagem_rec () {
 		porcentagem_rec /= 100;
-		return porcentagem_rec;
+		return this.porcentagem_rec;
 	}
 	
 	public FuncionarioDAO() {
