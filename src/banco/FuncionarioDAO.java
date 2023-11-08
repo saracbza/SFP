@@ -159,4 +159,38 @@ public class FuncionarioDAO {
 			System.out.println("Falha na conexão!");
 		}
 	}	
+
+	/**
+	 * Realiza a gravacao de um funcionario no banco de dados
+	 * @param f - o funcionario a ser gravado
+	 * @return - mensagem de aviso do processo
+	 */
+	public String salvar(Funcionario f) {
+		
+		sql = "INSERT INTO funcionario VALUES (?, ?, ?, ?, ?)"; //nome, cpf, data nasc, data contrat, dependentes
+		try {
+			bd.getConnection();
+			bd.st = bd.con.prepareStatement(sql);
+			bd.st.setString(1, f.getNome());
+			bd.st.setString(2, f.getCpf());
+			bd.st.setInt(5, f.getDependentes());
+			
+			//converter de java.util.date para java.sql.date
+			java.sql.Date data_nasc = new java.sql.Date(f.getData_nasc().getTime());
+			java.sql.Date data_contrat = new java.sql.Date(f.getData_contrat().getTime());
+			bd.st.setDate(3, data_nasc);
+			bd.st.setDate(4, data_contrat);
+			
+			bd.st.executeUpdate();
+			
+			men = "Funcionario "+f.getNome()+" inserido com sucesso!";
+		}
+		catch(SQLException erro) {
+			men = "Falha: verifique se o funcionario já existe... " + erro;
+		}
+		finally {
+			bd.close();
+		}
+		return men;
+	}
 }
