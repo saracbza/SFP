@@ -122,4 +122,41 @@ public class FuncionarioDAO {
 			System.out.println("Falha na conexão!");
 		}
 	}
+
+	/**
+	 * Busca as principais informacoes necessarias do funcionario para o calculo do seu pagamento
+	 * @param cod - parametro considerado para encontrar funcionario especifico
+	 */
+	public void listarDados(int cod) {
+		if(bd.getConnection()) {
+			String sql = "SELECT f.dependentes, c.valor_por_hr, s.porc_rec\r\n"
+					+ "	FROM cargo c \r\n"
+					+ "	inner join cargo_funcionario cf ON c.cod_cargo = cf.cod_cargo \r\n"
+					+ "	inner join funcionario f ON f.cod_func = cf.cod_func \r\n"
+					+ "	inner join sen_funcionario sf ON sf.cod_func = f.cod_func \r\n"
+					+ "	inner join senioridade s ON sf.cod_sen = s.cod_sen\r\n"
+					+ "	where f.cod_func = ?";
+			try {
+				bd.st = bd.con.prepareStatement(sql);
+				bd.st.setInt(1, cod);
+				bd.rs = bd.st.executeQuery();
+				
+				while(bd.rs.next()) { 
+					dependentes = bd.rs.getInt(1);
+					valor_hr = bd.rs.getFloat(2);
+					porcentagem_rec = bd.rs.getFloat(3);
+				}
+			}
+			catch(SQLException e) {
+				System.out.println("Erro: " + e);
+			}
+			finally {
+				bd.close();
+			}
+		}
+		
+		else {
+			System.out.println("Falha na conexão!");
+		}
+	}	
 }
