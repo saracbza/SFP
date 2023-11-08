@@ -8,6 +8,18 @@ public class Funcionario {
 	private Date data_nasc = new Date();
 	private Date data_contrat = new Date();
 	private int dependentes;
+
+	public Funcionario (int codigo, String nome, String cpf, Date data_nasc,
+			Date data_contrat,int dependentes) {
+		this.codigo = codigo;
+		this.nome = nome;
+		this.cpf = cpf;
+		this.data_nasc = data_nasc;
+		this.data_contrat = data_contrat;
+		this.dependentes = dependentes;
+	}
+	
+	public Funcionario () {}
 	
 	public int getCodigo() {
 		return codigo;
