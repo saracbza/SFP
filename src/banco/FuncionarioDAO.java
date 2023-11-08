@@ -193,4 +193,27 @@ public class FuncionarioDAO {
 		}
 		return men;
 	}
+
+	/**
+	 * Exclui um funcionario a partir de seu codigo
+	 * @param cod - codigo do funcionario a ser excluido
+	 * @return - mensagem de confirmacao da exclusao
+	 */
+	public String excluir (int cod) {
+		sql = "DELETE FROM funcionario WHERE cod_func = ?";
+		try {
+			bd.getConnection();
+			bd.st = bd.con.prepareStatement(sql);
+			bd.st.setInt(1, cod);
+			if (bd.st.executeUpdate()==1) men = "Excluido com sucesso!";
+			else men = "Funcionario não encontrado";
+	}
+		catch(SQLException erro) {
+			men = "Falha: " + erro;
+		}
+		finally {
+			bd.close();
+		}
+		return men;
+	}
 }
