@@ -247,4 +247,40 @@ public class FuncionarioDAO {
 		}
 		return f;
 	}
+
+	/**
+	 * Editar um funcionario a partir do seu codigo
+	 * @param c - informacoes novas para atualizacao
+	 * @param cod - codigo do funcionario a ser alterado
+	 * @return - mensagem de confirmacao da alteracao
+	 */
+	public String editar(Funcionario f, int cod) {
+		sql = "UPDATE funcionario set nome= ?, cpf=?, data_nasc=?, data_contrat=?, dependentes=?\r\n"
+			+ "WHERE cod_func = ?";
+			
+			try {
+			bd.getConnection();
+			bd.st = bd.con.prepareStatement(sql);
+			bd.st.setString(1, f.getNome());
+			bd.st.setString(2, f.getCpf());
+			bd.st.setInt(5, f.getDependentes());
+			bd.st.setInt(6, cod);
+			
+			java.sql.Date data_nasc = new java.sql.Date(f.getData_nasc().getTime());
+			java.sql.Date data_contrat = new java.sql.Date(f.getData_contrat().getTime());
+			bd.st.setDate(3, data_nasc);
+			bd.st.setDate(4, data_contrat);
+			
+			bd.st.executeUpdate();
+			
+			men = "Funcionario "+f.getNome()+" alterado com sucesso!";
+		}
+		catch(SQLException erro) {
+			men = "Falha: " + erro;
+		}
+		finally {
+			bd.close();
+		}
+		return men;
+	}
 }
