@@ -89,5 +89,33 @@ public class CargoDAO {
 			}
 			return men;
 		}
+
+		 /** 
+		 * Localiza um cargo a partir de seu nome
+		 * @param nome - nome do cargo a ser localizado
+		 * @return - o cargo pesquisado
+		 */
+		public Cargo pesquisar (String nome) {
+			Cargo c = new Cargo();
+			sql = "SELECT * cargo WHERE nome_cargo LIKE ?";
+			try {
+				bd.getConnection();
+				bd.st = bd.con.prepareStatement(sql);
+				bd.st.setString(1, "%" + nome + "%");
+				bd.rs = bd.st.executeQuery();
+				if(bd.rs.next()) {
+					c.setCodigo(bd.rs.getInt(1));
+					c.setNome(bd.rs.getString(2));
+					c.setValor_hr(bd.rs.getFloat(3));
+				} else c = null;
+		}
+			catch(SQLException erro) {
+				c = null;
+			}
+			finally {
+				bd.close();
+			}
+			return c;
+		}
 		
 	}
