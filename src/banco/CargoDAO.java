@@ -1,6 +1,9 @@
 package banco;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import entidades.Cargo;
 
 public class CargoDAO {
@@ -12,22 +15,21 @@ public class CargoDAO {
 		}
 		
 		/**
-		 * Lista todos os cargos cadastrados no sistema
+		 * Busca todos os cargos cadastrados no banco
+		 * @param sql - comando de solicitacao de informacoes para o banco
+		 * @return - lista com todos os cargos
 		 */
-		public void listar() {
-			if(bd.getConnection()) {
-				String sql = "SELECT * FROM cargo";
+		public List<Cargo> listar(String sql) {
+			List<Cargo> lista = new ArrayList<Cargo>();
+			bd.getConnection();
 				try {
 					bd.st = bd.con.prepareStatement(sql);
 					bd.rs = bd.st.executeQuery();
 					
 					while(bd.rs.next()) { 
-						Cargo c = new Cargo();
-						c.setCodigo(bd.rs.getInt(1));
-						c.setNome(bd.rs.getString(2));
-						c.setValor_hr(bd.rs.getFloat(3));
-						
-						System.out.println(c);
+						Cargo c = new Cargo(bd.rs.getInt(1), 
+								bd.rs.getString(2), bd.rs.getFloat(3));
+						lista.add(c);
 					}
 				}
 				catch(SQLException e) {
@@ -36,10 +38,6 @@ public class CargoDAO {
 				finally {
 					bd.close();
 				}
+				return lista;
 			}
-			
-			else {
-				System.out.println("Falha na conexão!");
-			}
-		}
 	}
