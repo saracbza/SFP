@@ -117,5 +117,32 @@ public class CargoDAO {
 			}
 			return c;
 		}
-		
+
+		 /**
+		 * Editar um cargo a partir do seu codigo
+		 * @param c - informacoes novas para atualizacao
+		 * @param cod - codigo do cargo a ser alterado
+		 * @return - mensagem de confirmacao da alteracao
+		 */
+		public String editar(Cargo c, int cod) {
+			sql = "UPDATE cargo set nome_cargo= ?, valor_por_hr=?\r\n"
+				+ "WHERE cod_cargo = ?";
+			try {
+				bd.getConnection();
+				bd.st = bd.con.prepareStatement(sql);
+				bd.st.setString(1, c.getNome());
+				bd.st.setFloat(2, c.getValor_hr());
+				bd.st.setFloat(3, cod);
+				bd.st.executeUpdate();
+				
+				men = "Cargo "+c.getNome()+" alterado com sucesso!";
+			}
+			catch(SQLException erro) {
+				men = "Falha: " + erro;
+			}
+			finally {
+				bd.close();
+			}
+			return men;
+		}	
 	}
